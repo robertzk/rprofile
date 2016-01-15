@@ -32,6 +32,16 @@ describe("Rprofile section operations", {
         replacement
       )
     })
+
+    test_that("we can clear a character section", {
+      section <- rprofile_section("envvar")
+      section <- modify_rprofile_section(section, "foo", "bar", "clear")
+      expect_equal(
+        modify_rprofile_section(section, "foo", operation = "clear")$data,
+        character(0)
+      )
+    })
+
   })
 })
 

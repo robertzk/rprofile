@@ -27,7 +27,8 @@ rprofile_section_new <- function(type) {
     option   = list(),
     packages = character(0),
     callback = list(),
-    code     = list()
+    code     = list(),
+    stop("Invalid rprofile section type")
   )
 }
 
@@ -63,7 +64,7 @@ rprofile_section_replace <- function(section, key, value) {
 }
 
 rprofile_section_clear <- function(section, key, value) {
-  section$data <- NULL
+  section$data <- rprofile_section_new(section$type)
   section
 }
 
