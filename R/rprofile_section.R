@@ -31,4 +31,35 @@ rprofile_section_new <- function(type) {
   )
 }
 
+## We can modify an Rprofile section by adding to it, 
+## removing from it, replacing it, or clearing it.
+modify_rprofile_section <- function(section, key, value, operation) {
+  operation <- match.arg(operation, c("add", "remove", "replace", "clear"))
+
+  getFromNamespace(paste("rprofile_section", operation, sep = "_"), "rprofile")(
+    operation, key, value)
+}
+
+rprofile_section_add <- function(section, key, value) {
+  if (missing(key)) {
+    section$data <- c(section$data, value)
+  } else {
+    section$data[[key]] <- value
+  }
+  section
+}
+
+rprofile_section_remove <- function(section, key, value) {
+  rprofile_section_replace(section, key, NULL)
+}
+
+rprofile_section_replace <- function(section, key, value) {
+  section$data[[key]] <- value
+  section
+}
+
+rprofile_section_clear <- function(section, key, value) {
+  section$data <- NULL
+  section
+}
 
