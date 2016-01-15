@@ -21,6 +21,17 @@ describe("Rprofile section operations", {
       expect_equal(modify_rprofile_section(section, "foo", operation = "remove")$data,
                    c("qux" = "dok"))
     })
+
+    test_that("we can replace a section entirely", {
+      section <- rprofile_section("envvar")
+      section <- modify_rprofile_section(section, "foo", "bar", "add")
+      section <- modify_rprofile_section(section, "qux", "dok", "add")
+      replacement <- c("qux" = "dok", "foo" = "bar")
+      expect_equal(
+        modify_rprofile_section(section, "foo", replacement, operation = "replace")$data,
+        replacement
+      )
+    })
   })
 })
 
