@@ -41,7 +41,7 @@ rprofile_packages(c("pkg1", "pkg2")) # Overwrite packages.
 rprofile_packages() # List all autoloaded packages.
 
 # Add a task callback: https://stat.ethz.ch/R-manual/R-devel/library/base/html/taskCallback.html
-rprofile_callback("package_name", add = TRUE)
+rprofile_callback(function(expr, value, ok, visible) { print("Hello") }, , add = TRUE)
 
 # Sections of code to run after everything else has been loaded.
 rprofile_code({

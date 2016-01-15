@@ -2,15 +2,12 @@
 % Please edit documentation in R/rprofile_section.R
 \name{rprofile_section}
 \alias{rprofile_section}
-\title{Create an object recording an Rprofile section.}
+\title{Create a new object recording an Rprofile section.}
 \usage{
-rprofile_section(type, data)
+rprofile_section(type)
 }
 \arguments{
 \item{type}{character. The type of the section.}
-
-\item{data}{list. Any metadata associated with the section
-(will vary by section).}
 }
 \value{
 An \code{rprofile_section} object.
