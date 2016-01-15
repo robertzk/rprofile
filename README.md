@@ -36,9 +36,9 @@ rprofile_option("option_name") # will be "value"
 rprofile_options()
 
 # Set packages to load on startup.
-rprofile_packages("package_name", add = TRUE)
-rprofile_packages(c("pkg1", "pkg2")) # Overwrite packages.
+rprofile_package("package_name")
 rprofile_packages() # List all autoloaded packages.
+rprofile_packages(c("pkg1", "pkg2")) # Overwrite packages.
 
 # Add a task callback: https://stat.ethz.ch/R-manual/R-devel/library/base/html/taskCallback.html
 rprofile_callback(function(expr, value, ok, visible) { print("Hello") }, , add = TRUE)
