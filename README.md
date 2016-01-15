@@ -38,10 +38,10 @@ rprofile_options()
 # Set packages to load on startup.
 rprofile_packages("package_name", add = TRUE)
 rprofile_packages(c("pkg1", "pkg2")) # Overwrite packages.
+rprofile_packages() # List all autoloaded packages.
 
 # Add a task callback: https://stat.ethz.ch/R-manual/R-devel/library/base/html/taskCallback.html
 rprofile_callback("package_name", add = TRUE)
-rprofile_packages(c("pkg1", "pkg2")) # Overwrite packages.
 
 # Sections of code to run after everything else has been loaded.
 rprofile_code({
@@ -69,6 +69,7 @@ To install the latest development builds directly from GitHub, run this instead:
 
 ```R
 if (!require("devtools")) install.packages("devtools")
+if (!require("s3mpi")) devtools::install_github("robertzk/s3mpi")
 devtools::install_github("robertzk/rprofile")
 ```
 
