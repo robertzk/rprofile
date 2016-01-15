@@ -35,7 +35,7 @@ describe("Rprofile section operations", {
 
     test_that("we can clear a character section", {
       section <- rprofile_section("envvar")
-      section <- modify_rprofile_section(section, "foo", "bar", "clear")
+      section <- modify_rprofile_section(section, "foo", operation = "clear")
       expect_equal(
         modify_rprofile_section(section, "foo", operation = "clear")$data,
         character(0)
@@ -51,7 +51,7 @@ describe("Rprofile section operations", {
                    list("foo" = list(a = 1)))
     })
 
-    test_that("we can remove a character section", {
+    test_that("we can remove a list section", {
       section <- rprofile_section("option")
       section <- modify_rprofile_section(section, "foo", list(a = 1), "add")
       section <- modify_rprofile_section(section, "qux", list(b = 2), "add")
@@ -59,23 +59,23 @@ describe("Rprofile section operations", {
                    list("qux" = list(b = 2)))
     })
 
-    test_that("we can replace a section entirely", {
-      section <- rprofile_section("envvar")
-      section <- modify_rprofile_section(section, "foo", "bar", "add")
+    test_that("we can replace a list section entirely", {
+      section <- rprofile_section("option")
+      section <- modify_rprofile_section(section, "foo", list(a = 1), "add")
       section <- modify_rprofile_section(section, "qux", "dok", "add")
-      replacement <- c("qux" = "dok", "foo" = "bar")
+      replacement <- list("qux" = list(c = 3), "foo" = list(d = 4))
       expect_equal(
         modify_rprofile_section(section, "foo", replacement, operation = "replace")$data,
         replacement
       )
     })
 
-    test_that("we can clear a character section", {
-      section <- rprofile_section("envvar")
-      section <- modify_rprofile_section(section, "foo", "bar", "clear")
+    test_that("we can clear a list section", {
+      section <- rprofile_section("option")
+      section <- modify_rprofile_section(section, "foo", operation = "clear")
       expect_equal(
         modify_rprofile_section(section, "foo", operation = "clear")$data,
-        character(0)
+        list()
       )
     })
 
