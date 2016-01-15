@@ -43,5 +43,42 @@ describe("Rprofile section operations", {
     })
 
   })
+
+  describe("list sections", {
+    test_that("we can add a list section", {
+      section <- rprofile_section("option")
+      expect_equal(modify_rprofile_section(section, "foo", list(a = 1), "add")$data,
+                   list("foo" = list(a = 1)))
+    })
+
+    test_that("we can remove a character section", {
+      section <- rprofile_section("option")
+      section <- modify_rprofile_section(section, "foo", list(a = 1), "add")
+      section <- modify_rprofile_section(section, "qux", list(b = 2), "add")
+      expect_equal(modify_rprofile_section(section, "foo", operation = "remove")$data,
+                   list("qux" = list(b = 2)))
+    })
+
+    test_that("we can replace a section entirely", {
+      section <- rprofile_section("envvar")
+      section <- modify_rprofile_section(section, "foo", "bar", "add")
+      section <- modify_rprofile_section(section, "qux", "dok", "add")
+      replacement <- c("qux" = "dok", "foo" = "bar")
+      expect_equal(
+        modify_rprofile_section(section, "foo", replacement, operation = "replace")$data,
+        replacement
+      )
+    })
+
+    test_that("we can clear a character section", {
+      section <- rprofile_section("envvar")
+      section <- modify_rprofile_section(section, "foo", "bar", "clear")
+      expect_equal(
+        modify_rprofile_section(section, "foo", operation = "clear")$data,
+        character(0)
+      )
+    })
+
+  })
 })
 
