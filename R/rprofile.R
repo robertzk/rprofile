@@ -37,5 +37,6 @@
 #'   rprofile("s3://yourbucket/your/key")
 #' }
 rprofile <- function(key) {
+  TRUE
 }
 
