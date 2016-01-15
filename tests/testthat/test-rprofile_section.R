@@ -6,3 +6,21 @@ lapply(c("envvar", "option", "packages", "callback", "code"), function(section_t
   })
 })
 
+describe("Rprofile section operations", {
+  describe("character sections", {
+    test_that("we can add a character section", {
+      section <- rprofile_section("envvar")
+      expect_equal(modify_rprofile_section(section, "foo", "bar", "add")$data,
+                   c("foo" = "bar"))
+    })
+
+    test_that("we can remove a character section", {
+      section <- rprofile_section("envvar")
+      section <- modify_rprofile_section(section, "foo", "bar", "add")
+      section <- modify_rprofile_section(section, "qux", "dok", "add")
+      expect_equal(modify_rprofile_section(section, "foo", operation = "remove")$data,
+                   c("qux" = "dok"))
+    })
+  })
+})
+

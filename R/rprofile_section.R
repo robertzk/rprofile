@@ -37,7 +37,7 @@ modify_rprofile_section <- function(section, key, value, operation) {
   operation <- match.arg(operation, c("add", "remove", "replace", "clear"))
 
   getFromNamespace(paste("rprofile_section", operation, sep = "_"), "rprofile")(
-    operation, key, value)
+    section, key, value)
 }
 
 rprofile_section_add <- function(section, key, value) {
@@ -50,11 +50,15 @@ rprofile_section_add <- function(section, key, value) {
 }
 
 rprofile_section_remove <- function(section, key, value) {
-  rprofile_section_replace(section, key, NULL)
+  ## We have to be careful to support modifying partially named
+  ## character vectors and lists.
+  section_names <- names(section$data) %||% rep("", length(section$data))
+  section$data  <- section$data[section_names != key]
+  section
 }
 
 rprofile_section_replace <- function(section, key, value) {
-  section$data[[key]] <- value
+  section$data <- value
   section
 }
 
